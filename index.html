@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday</title>
+    <link rel="icon" type="image/png" href="./img/CILKGax.png" />
 
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap");
+
+      :root{
+        --pink:#ff4f88;
+        --white:#ffffff;
+      }
+
+      /* Nền + font chung */
+      body{
+        margin:0; padding:0;
+        font-family:"Poppins",sans-serif;
+        background-image:url("./img/background.png");
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        text-align:center;
+        overflow:hidden; /* để hiệu ứng bay gọn trong khung */
+      }
+
+      /* Menu */
+      .buttons{
+        display:flex;
+        justify-content:center;
+        gap:2rem;
+        padding:2rem 1rem 1rem;
+      }
+      .btn{
+        display:inline-block;
+        padding:12px 32px;
+        border-radius:25px;
+        color:#fff;
+        text-decoration:none;
+        font-weight:700;
+        transition:.25s transform ease, .25s filter ease;
+        background-size:200% auto;
+        box-shadow:0 0 16px rgba(0,0,0,.12);
+      }
+      .btn:hover{ transform:translateY(-2px); filter:brightness(1.05); }
+      .btn-bir{ background-image:linear-gradient(to right,#314755,#26a0da); }
+      .btn-timeline{ background-image:linear-gradient(to right,#da22ff,#9733ee); }
+      .btn-gallery{ background-image:linear-gradient(to right,#02aab0,#00cdac); }
+
+      /* Bố cục chữ trái – hình phải */
+      .content{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:80px;
+        flex-wrap:wrap;
+        margin-top:30px;
+        padding:0 16px;
+      }
+      .text-section{ text-align:right; max-width:460px; }
+
+      /* Happy Birthday + dòng chữ nhỏ: HỒNG ĐẬM + ĐỔI MÀU CHẠY + NHẢY SÓNG */
+      .title,
+      .subtitle{
+        /* gradient đổi màu chạy ngang */
+        background: linear-gradient(90deg, #ff2b6d, #ff7fb0, #ffd1e8, #ff2b6d);
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        /* bóng để dễ đọc trên nền sáng */
+        text-shadow: 0 0 14px rgba(255,255,255,0.65);
+
+        /* hiệu ứng chạy màu + nhảy sóng */
+        animation:
+          hueSlide 6s linear infinite,
+          waveJump 2.8s ease-in-out infinite;
+      }
+      .title{
+        font-size:64px; font-weight:900; margin:0;
+      }
+      .subtitle{
+        font-size:24px; font-weight:800; margin:18px auto 10px;
+      }
+
+      @keyframes hueSlide{
+        0%   { background-position:   0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position:   0% 50%; }
+      }
+      @keyframes waveJump{
+        0%{   transform:translateY(0); }
+        25%{  transform:translateY(-18px); }
+        50%{  transform:translateY(0); }
+        75%{  transform:translateY(12px); }
+        100%{ transform:translateY(0); }
+      }
+
+      /* Ảnh tròn bên phải */
+      .img-section{ display:flex; justify-content:center; align-items:center; }
+      .cover{
+        width:250px; height:250px; border-radius:50%;
+        object-fit:cover; border:6px solid #fff;
+        box-shadow:0 0 25px rgba(0,0,0,0.35);
+      }
+
+      /* Lời chúc bay (TRẮNG ĐẬM, KHÔNG đổi màu) */
+      .wishes{
+        position:fixed; bottom:100px; left:0; width:100%;
+        pointer-events:none; overflow:visible; z-index:10;
+      }
+      .wish{
+        position:absolute; bottom:0;
+        font-size:24px; font-weight:800;
+        color:#ffffff; /* trắng đậm */
+        text-shadow:
+          0 0 10px rgba(0,0,0,.85),   /* viền đen mềm giúp nổi trên nền sáng */
+          0 0 18px rgba(255,255,255,.9);
+        opacity:0;
+        animation: floatUp 4s ease-out forwards; /* KHÔNG colorShift */
+      }
+      @keyframes floatUp{
+        0%   { transform:translateY(0) scale(1);   opacity:0; }
+        10%  { opacity:1; }
+        70%  { transform:translateY(-120px) scale(1.05); opacity:1; }
+        100% { transform:translateY(-200px) scale(.9);  opacity:0; }
+      }
+
+      /* Nút phát nhạc */
+      #play-btn{
+        display:none;
+        position:fixed; right:20px; bottom:20px;
+        background:var(--pink);
+        color:#fff; border:none;
+        padding:12px 18px; border-radius:30px;
+        font-size:16px; font-weight:800;
+        cursor:pointer;
+        box-shadow:0 0 12px rgba(0,0,0,.3);
+        z-index:9999;
+      }
+      #play-btn:hover{ background:#ff2b6d; }
+
+      /* Responsive */
+      @media (max-width: 768px){
+        .content{ flex-direction:column; text-align:center; gap:20px; }
+        .text-section{ text-align:center; }
+        .title{ font-size:48px; }
+        .subtitle{ font-size:20px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Menu -->
+    <div class="buttons">
+      <a href="index.html" class="btn btn-bir">Sinh nhật</a>
+      <a href="timeline.html" class="btn btn-timeline">Dòng thời gian</a>
+    </div>
+
+    <!-- Chữ trái / Hình phải -->
+    <div class="content">
+      <div class="text-section">
+        <h1 class="title">🎉 Happy Birthday 🎉</h1>
+      </div>
+      <div class="img-section">
+        <img src="./img/MyAvatar.jpg" alt="Avatar" class="cover" />
+      </div>
+    </div>
+
+    <!-- Dòng chữ nhỏ ở giữa -->
+    <p class="subtitle">Chúc Thảo Quỳnh một ngày thật đặc biệt và tràn đầy niềm vui 💖</p>
+
+    <!-- Audio: KHÔNG loop để hết bài thì dừng & hiện nút -->
+    <audio id="player" autoplay muted preload="auto">
+      <source src="./music/music.mp3" type="audio/mp3" />
+    </audio>
+
+    <!-- Khu vực lời chúc bay -->
+    <div class="wishes"></div>
+
+    <!-- Nút phát nhạc -->
+    <button id="play-btn">🎵 Phát nhạc</button>
+
+    <script>
+  const player = document.getElementById('player');
+  const playBtn = document.getElementById('play-btn');
+  const wishesContainer = document.querySelector('.wishes');
+
+  // 🌸 DANH SÁCH LỜI CHÚC (màu trắng đậm, bay nhẹ)
+  const messages = [
+    "🎂 Chúc bạn tuổi mới thật hạnh phúc!",
+    "💖 Luôn xinh đẹp và rạng rỡ nhé!",
+    "🌸 Mọi ước mơ đều thành hiện thực!",
+    "🎁 Một năm đầy niềm vui và bất ngờ!",
+    "✨ Chúc bạn luôn cười thật tươi!",
+    "🎶 Hãy để âm nhạc của niềm vui vang lên trong tim bạn!",
+    "🌈 Mỗi ngày đều là món quà, hãy tận hưởng thật trọn vẹn nhé!",
+    "🕯️ Chúc cho ánh nến sinh nhật thắp sáng cả một năm may mắn!",
+    "💐 Chúc bạn luôn được yêu thương và trân trọng!",
+    "🌻 Hôm nay là của bạn – hãy mỉm cười thật tươi nhé!",
+    "💌 Chúc bạn luôn đủ mạnh mẽ để theo đuổi giấc mơ của mình!",
+    "☀️ Mong rằng bình minh mỗi ngày đều mang đến điều tốt đẹp!",
+    "🍀 Tuổi mới – khởi đầu mới, may mắn nhân đôi!",
+    "🌷 Hãy sống trọn từng khoảnh khắc với niềm vui và lòng biết ơn!",
+    "🌟 Một năm tuyệt vời đang chờ đón bạn phía trước!",
+    "🧁 Chúc bạn tuổi mới thêm ngọt ngào như chiếc bánh kem này!",
+    "🎊 Mỗi năm thêm tuổi là thêm yêu thương và trưởng thành!",
+    "💫 Hãy luôn tin rằng mình xứng đáng với điều tốt đẹp nhất!",
+    "🌸 Cảm ơn vì đã đến thế giới này và làm cho nó tươi đẹp hơn!",
+    "🎇 Mong hôm nay là ngày khởi đầu của mọi điều may mắn!",
+    "🥰 Tuổi mới – thật nhiều yêu thương, thật nhiều nụ cười nhé!",
+    "💎 Bạn là người đặc biệt, đừng bao giờ quên điều đó!",
+    "🦋 Chúc bạn bay thật xa, theo đuổi những ước mơ rực rỡ!",
+    "🎉 Cùng nâng ly cho tuổi mới tràn đầy hy vọng và niềm vui!"
+  ];
+
+  let wishesTimer = null;
+  function startWishes() {
+    if (wishesTimer) return;
+    wishesTimer = setInterval(() => {
+      const msg = document.createElement('div');
+      msg.className = 'wish';
+      msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+      msg.style.left = (Math.random() * 80 + 10) + '%';
+      wishesContainer.appendChild(msg);
+      setTimeout(() => msg.remove(), 4000);
+    }, 1800);
+  }
+
+  function stopWishes() {
+    if (wishesTimer) {
+      clearInterval(wishesTimer);
+      wishesTimer = null;
+    }
+  }
+
+  // 1) Phát nhạc im lặng trước
+  player.muted = true;
+  player.play().catch(() => {});
+
+  // 2) Sau 3s thử bật tiếng. Nếu bị chặn -> hiện nút
+  setTimeout(async () => {
+    player.muted = false;
+    try {
+      await player.play();
+      playBtn.style.display = 'none';
+    } catch (e) {
+      playBtn.style.display = 'block';
+    }
+  }, 3000);
+
+  // 3) Nếu 4s rồi vẫn chưa chạy -> hiện nút
+  setTimeout(() => {
+    if (player.paused) playBtn.style.display = 'block';
+  }, 4000);
+
+  // 4) Điều khiển lời chúc & nút phát
+  player.addEventListener('play', () => {
+    playBtn.style.display = 'none';
+    startWishes();
+  });
+  player.addEventListener('pause', () => {
+    if (!player.ended) playBtn.style.display = 'block';
+    stopWishes();
+  });
+  player.addEventListener('ended', () => {
+    playBtn.style.display = 'block';
+    stopWishes();
+  });
+  player.addEventListener('error', () => {
+    console.error('Không tải được file nhạc. Kiểm tra ./music/music.mp3');
+    playBtn.style.display = 'block';
+  });
+
+  // 5) Nút phát nhạc
+  playBtn.addEventListener('click', async () => {
+    try {
+      player.currentTime = 0;
+      player.muted = false;
+      await player.play();
+      playBtn.style.display = 'none';
+    } catch (e) {
+      console.log('Không thể phát nhạc:', e);
+    }
+  });
+</script>
+
+  </body>
+</html>

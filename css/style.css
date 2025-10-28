@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+html {
+    scroll-behavior: smooth;
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Nền trang chính */
+.page__main {
+    background-image: url("../img/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #333;
+}
+
+/* --- MENU NÚT --- */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+/* Cấu trúc chung cho nút */
+.btn {
+    display: inline-block;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-position: right center;
+    color: #fff;
+}
+
+/* Màu nút */
+.btn-bir {
+    background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
+}
+.btn-timeline {
+    background-image: linear-gradient(to right, #da22ff 0%, #9733ee 51%, #da22ff 100%);
+}
+.btn-gallery {
+    background-image: linear-gradient(to right, #02aab0 0%, #00cdac 51%, #02aab0 100%);
+}
+
+/* --- BỐ CỤC --- */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+/* Bên trái: chữ lớn */
+.text-section {
+    text-align: right;
+    max-width: 400px;
+}
+
+.title {
+    font-size: 60px;
+    font-weight: 800;
+    color: #ff4f88;
+    margin: 0;
+    text-shadow: 0 3px 6px rgba(255, 79, 136, 0.3);
+}
+
+/* Bên phải: hình */
+.img-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ff4f88;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Dòng chữ nhỏ ở giữa */
+.subtitle {
+  font-size: 22px;
+  color: #ff0066;
+  font-weight: 700;
+  text-shadow: 
+    0 0 10px #fff,
+    0 0 20px #ff66b2,
+    0 0 40px #ff66b2;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #fff, 0 0 20px #ff66b2, 0 0 40px #ff66b2; }
+  to { text-shadow: 0 0 15px #fff, 0 0 30px #ff3399, 0 0 60px #ff3399; }
+}
+
+/* Ẩn audio */
+audio {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .text-section {
+        text-align: center;
+    }
+    .title {
+        font-size: 45px;
+    }
+    .subtitle {
+        font-size: 18px;
+    }
+}
